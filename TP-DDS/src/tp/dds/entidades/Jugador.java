@@ -1,30 +1,63 @@
 package tp.dds.entidades;
 
-public class Jugador {
-	
-	private String jnombre;
-	private Integer jcategoria;
-	private Integer jinfracciones;
-	
+import java.util.ArrayList;
+import java.util.List;
+
+public class Jugador implements Persona {
+
+	private String nombre;
+	private String mail;
+	private Integer categoria;
+	private List<Infraccion> infracciones;
+	private List<Persona> amigos;
+
+
 	public Jugador(String nombre, Integer categoria){
-		this.jnombre = nombre;
-		this.jcategoria = categoria;
+		this(nombre, "", categoria);
 	}
 
-	public String nombre() {
-		return jnombre;
+	public Jugador(String nombre, String mail, Integer categoria){
+		this.nombre = nombre;
+		this.mail = mail;
+		this.categoria = categoria;
+		inicializar();
 	}
+
+	private void inicializar() {
+		this.infracciones = new ArrayList<Infraccion>();
+		this.amigos = new ArrayList<Persona>();
+	}
+
 
 	public Integer categoria() {
-		return jcategoria;
+		return categoria;
 	}
 
-	public Integer infracciones() {
-		return jinfracciones;
+	public List<Infraccion> infracciones() {
+		return infracciones;
 	}
 
-	public void agregarInfraccion() {
-		this.jinfracciones+=1;
+	public Integer cantInfracciones() {
+		return infracciones.size();
+	}
+
+	public void agregarInfraccion(Infraccion infraccion) {
+		this.infracciones.add(infraccion);
+	}
+
+	public void agregarAmigo(Persona amigo) {
+		if (!this.amigos.contains(amigo))
+			this.amigos.add(amigo);
+	}
+
+	@Override
+	public String nombre() {
+		return nombre;
+	}
+
+	@Override
+	public String mail() {
+		return this.mail;
 	}
 
 }

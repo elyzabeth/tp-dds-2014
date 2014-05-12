@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
    TPE1Prioridad2.class,
    TPE1Prioridad3.class,
    TPE1Prioridad4.class
+   //TPE1Prioridad5.class
 })
 
 public class TestSuiteE1 {
