@@ -66,15 +66,7 @@ public class Partido {
 	}
 
 	public boolean contieneJugador(Inscripcion inscripcion) {
-		Iterator<Inscripcion> it = this.inscripciones.iterator();
-		Inscripcion aux;
-		while(it.hasNext()){
-			aux = it.next();
-			if (aux.jugador().nombre().equals(inscripcion.jugador().nombre()) ) {
-				return true;
-			}
-		}
-		return false;
+		return this.inscripciones.contains(inscripcion);
 	}
 	
 	public Integer cantJugadoresEstandar() {
