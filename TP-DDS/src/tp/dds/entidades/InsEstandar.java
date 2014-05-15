@@ -19,4 +19,16 @@ public class InsEstandar extends Inscripcion {
 		return 1;
 	}
 
+
+	@Override
+	public boolean cederPlaza(Inscripcion inscripcion) {
+		return false;
+	}
+
+
+	@Override
+	public boolean confirmarPresencia(Partido partido) {
+		return true;
+	}
+
 }

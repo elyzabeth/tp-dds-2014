@@ -11,21 +11,28 @@ import tp.dds.observer.InscripcionObserver;
 public class Partido {
 
 	private final Integer MAX_JUGADORES_XPARTIDO = 10;
+	private Date fecha;
+	private String lugar;
+	private Administrador administrador;
+
 	private List<Inscripcion> inscripciones;
 	private	Integer plaza_asegurada;
-	private Date fecha;
-	private Administrador administrador;
 	private List<InscripcionObserver> observadores;
 
 	
+	public Partido() {
+		this(new Date());
+	}
+	
 	public Partido(Date fecha) {
-		this(fecha, null);
+		this(fecha, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 	}
 
 	public Partido(Date fecha, Administrador admin) {
 		inicializar();
 		this.fecha = fecha;
 		this.administrador = admin;
+		this.lugar = "";
 	}
 
 	private void inicializar(){
@@ -34,19 +41,15 @@ public class Partido {
 		this.observadores = new ArrayList<InscripcionObserver>();
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
-	}
 
-	public void inscribir(Inscripcion inscripcion) throws NoHayLugarException {
+	public void inscribir(Inscripcion inscripcion) {
 		if (permitirInscripcion()) {
-
 			desplazar(inscripcion);
-
 		}
 		else {
-			throw new NoHayLugarException(); 
+			throw new NoHayLugarException();
 		}
+		limpiarCondicionales();
 
 		notificarInscripcion(inscripcion);
 	}
@@ -61,16 +64,16 @@ public class Partido {
 		}
 	}
 
-	public void bajaJugador(Jugador jugadorBaja, Jugador nuevoJugador) throws NoHayLugarException {
+	public void bajaJugador(Jugador jugadorBaja, Jugador jugadorNuevo) {
 
 		// DAR de BAJA jugador
 		quitarJugador(jugadorBaja);
 
-		if (null == nuevoJugador){
+		if (null == jugadorNuevo){
 			jugadorBaja.agregarInfraccion(new Infraccion(new Date(), "BAJA"));
 			notificarInscripcion(null);
 		} else {
-			inscribir(new InsEstandar(nuevoJugador));
+			inscribir(new InsEstandar(jugadorNuevo));
 		}
 
 	}
@@ -103,20 +106,22 @@ public class Partido {
 		Iterator<Inscripcion> it;
 		Inscripcion aux;
 
-		if(this.inscripciones.isEmpty()|| cantInscriptos() < MAX_JUGADORES_XPARTIDO){
-			this.inscripciones.add(inscripcion);
-			this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-			return true;
-		} else {
-			ins.addAll(this.inscripciones);
-			it = ins.iterator();
-			while(it.hasNext()){
-				aux = it.next();
-				if (aux.cederPlaza(inscripcion)){
-					this.inscripciones.remove(aux);
-					this.inscripciones.add(inscripcion);
-					this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-					return true;
+		if( inscripcion.confirmarPresencia(this)) {
+			if( this.inscripciones.isEmpty() || cantInscriptos() < MAX_JUGADORES_XPARTIDO) {
+				this.inscripciones.add(inscripcion);
+				this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
+				return true;
+			} else {
+				ins.addAll(this.inscripciones);
+				it = ins.iterator();
+				while(it.hasNext()){
+					aux = it.next();
+					if (aux.cederPlaza(inscripcion)){
+						this.inscripciones.remove(aux);
+						this.inscripciones.add(inscripcion);
+						this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
+						return true;
+					}
 				}
 			}
 		}
@@ -124,12 +129,30 @@ public class Partido {
 		return false;
 	}
 
+	private void limpiarCondicionales() {
+		List<Inscripcion> ins = new ArrayList<Inscripcion>();
+		Iterator<Inscripcion> it;
+		Inscripcion aux;
+		ins.addAll(this.inscripciones);
+		it = ins.iterator();
+
+		while(it.hasNext()){
+			aux = it.next();
+			if (!aux.confirmarPresencia(this)) {
+				this.inscripciones.remove(aux);
+				this.plaza_asegurada -= aux.incrementarPlazaAsegurada();
+			}
+		}
+	}
+
 	public void generarEquipos(){
-		// TODO
+		// TODO Devolver listado de jugadores verificando si se cumplen 
+		// las condiciones de las inscripciones condicionales
 	}
 
 	public String fecha() {
-		return "fecha"; //fecha.toString();
+		// TODO formatear fecha!!
+		return fecha.toString();
 	}
 
 	public boolean contieneJugador(Inscripcion inscripcion) {
@@ -154,6 +177,14 @@ public class Partido {
 
 	public void agregarObservador(InscripcionObserver obs) {
 		this.observadores.add(obs);
+	}
+
+	public List<Inscripcion> inscripciones() {
+		return inscripciones;
+	}
+
+	public String lugar() {
+		return lugar;
 	}
 
 }

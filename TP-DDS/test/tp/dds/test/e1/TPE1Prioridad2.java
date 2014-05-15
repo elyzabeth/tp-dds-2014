@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.test.e1;
 
 import java.util.Date;
 
@@ -6,14 +6,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import tp.dds.entidades.CondMaxCantJugxEdad;
+import tp.dds.entidades.InsEstandar;
+import tp.dds.entidades.InsSolidaria;
+import tp.dds.entidades.Inscripcion;
+import tp.dds.entidades.Jugador;
+import tp.dds.entidades.Partido;
 import tp.dds.excepciones.NoHayLugarException;
 
 /**
- * Tengo 1 partido con 9 jugadores estandar y 1 solidario.
- * Debe permitir agregar inscripciones estandar y solidaria desplazando al solidario
- * pero no debe permitir agregar inscripcion condicional.
+ * Tengo 1 partido con 9 jugadores estandar.
+ * Se debe poder agregar cualquier tipo de inscripcion 
  */
-public class TPE1Prioridad3 {
+public class TPE1Prioridad2 {
 
 	Jugador jugador1, jugador2, jugador3 , jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11, jugador12;
@@ -26,7 +31,7 @@ public class TPE1Prioridad3 {
 
 		jugador1 = new Jugador("Martin", 1970);
 		jugador2 = new Jugador("Marcelo", 1974);
-		jugador3 = new Jugador("Matias", 1992);
+		jugador3 = new Jugador("Matias", 1992); //22 años
 		jugador4 = new Jugador("Federico", 1984);
 		jugador5 = new Jugador("Patricio", 1981);
 		jugador6 = new Jugador("Fabrizio", 1979);
@@ -46,7 +51,6 @@ public class TPE1Prioridad3 {
 		partido.inscribir(new InsEstandar(jugador7));
 		partido.inscribir(new InsEstandar(jugador8));
 		partido.inscribir(new InsEstandar(jugador9));
-		partido.inscribir(new InsSolidaria(jugador10));
 
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 		
@@ -55,7 +59,7 @@ public class TPE1Prioridad3 {
 
 	@Test
 	public void agregarJugadorEstandar(){
-		System.out.println("Agrego jugador Estandar: debe desplazar al solidario");
+		System.out.println("Agrego jugador Estandar: debe poder inscribirse");
 		Inscripcion ins = new InsEstandar(jugador11);
 		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
@@ -63,7 +67,7 @@ public class TPE1Prioridad3 {
 
 	@Test
 	public void agregarJugadorSolidario(){
-		System.out.println("Agrego jugador Solidario: debe desplazar al solidario");
+		System.out.println("Agrego jugador Solidario: debe poder inscribirse");
 		Inscripcion ins = new InsSolidaria(jugador11);
 		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
@@ -71,8 +75,16 @@ public class TPE1Prioridad3 {
 
 	@Test
 	public void agregarJugadorCondicional(){
-		System.out.println("Agrego jugador Condicional: No debe poder agregarse");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		System.out.println("Agrego jugador Condicional: debe poder inscribirse");
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
+		partido.inscribir(ins);
+		Assert.assertTrue(partido.contieneJugador(ins));
+	}
+
+	@Test
+	public void agregarJugadorCondicional2(){
+		System.out.println("Agrego jugador Condicional: No debe agregarse porque no se cumple la condicion");
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 1, 30);
 		partido.inscribir(ins);
 		Assert.assertFalse(partido.contieneJugador(ins));
 	}

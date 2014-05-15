@@ -1,4 +1,4 @@
-package tp.dds.entidades.e2;
+package tp.dds.test.e2;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

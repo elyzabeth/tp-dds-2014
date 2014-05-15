@@ -1,4 +1,4 @@
-package tp.dds.entidades.e2;
+package tp.dds.test.e2;
 
 import java.util.Date;
 
@@ -18,18 +18,18 @@ import tp.dds.entidades.Persona;
 import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.observer.BajaJugador;
 import tp.dds.observer.InscripcionJugador;
-import tp.dds.observer.MailSenderStub;
 import tp.dds.observer.PartidoConfirmado;
+import tp.dds.test.MailSenderStub;
 
 
 public class Entrega2Test1 {
 
 	MailSenderStub mailSender;
+	Partido partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11,
 			jugador12;
-	Partido partido;
 
 	@Before
 	public void initObjects() {
@@ -66,19 +66,15 @@ public class Entrega2Test1 {
 		partido.agregarObservador(new InscripcionJugador(partido, mailSender));
 		partido.agregarObservador(new PartidoConfirmado(partido, mailSender));
 		
-		try {
-			partido.inscribir(new InsEstandar(jugador1));
-			partido.inscribir(new InsEstandar(jugador2));
-			partido.inscribir(new InsEstandar(jugador3));
-			partido.inscribir(new InsEstandar(jugador4));
-			partido.inscribir(new InsEstandar(jugador5));
-			partido.inscribir(new InsEstandar(jugador6));
-			partido.inscribir(new InsEstandar(jugador7));
-			partido.inscribir(new InsEstandar(jugador8));
-			partido.inscribir(new InsEstandar(jugador9));
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(new InsEstandar(jugador1));
+		partido.inscribir(new InsEstandar(jugador2));
+		partido.inscribir(new InsEstandar(jugador3));
+		partido.inscribir(new InsEstandar(jugador4));
+		partido.inscribir(new InsEstandar(jugador5));
+		partido.inscribir(new InsEstandar(jugador6));
+		partido.inscribir(new InsEstandar(jugador7));
+		partido.inscribir(new InsEstandar(jugador8));
+		partido.inscribir(new InsEstandar(jugador9));
 
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 
@@ -111,7 +107,7 @@ public class Entrega2Test1 {
 	@Test//(expected=NoHayLugarException.class)
 	public void agregarJugadorCondicional() {
 		System.out.println("Agrego jugador Condicional: con 4 amigos, envia mail al admin y a los amigos");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
 		partido.inscribir(ins);
 		Assert.assertEquals(5, mailSender.listaMails().size());
 	}
@@ -119,12 +115,7 @@ public class Entrega2Test1 {
 	@Test
 	public void borroJugador() {
 		System.out.println("Borro jugador sin reemplazo: no envio mails");
-		
-		try {
-			partido.bajaJugador(jugador1, null);
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.bajaJugador(jugador1, null);
 		Assert.assertEquals(0, mailSender.listaMails().size());
 	}
 

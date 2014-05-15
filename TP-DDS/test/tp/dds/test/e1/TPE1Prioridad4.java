@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.test.e1;
 
 import java.util.Date;
 
@@ -6,6 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import tp.dds.entidades.CondMaxCantJugxEdad;
+import tp.dds.entidades.InsEstandar;
+import tp.dds.entidades.InsSolidaria;
+import tp.dds.entidades.Inscripcion;
+import tp.dds.entidades.Jugador;
+import tp.dds.entidades.Partido;
 import tp.dds.excepciones.NoHayLugarException;
 
 /**
@@ -45,7 +51,7 @@ public class TPE1Prioridad4 {
 		partido.inscribir(new InsEstandar(jugador7));
 		partido.inscribir(new InsEstandar(jugador8));
 		partido.inscribir(new InsEstandar(jugador9));
-		partido.inscribir(new CondMaxCantJugxEdad(jugador10));
+		partido.inscribir(new CondMaxCantJugxEdad(jugador10, 5, 20));
 	
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 		
@@ -71,7 +77,7 @@ public class TPE1Prioridad4 {
 	@Test
 	public void agregarJugadorCondicional(){
 		System.out.println("Agrego jugador Condicional: debe desplazar al condicional");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
 		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}

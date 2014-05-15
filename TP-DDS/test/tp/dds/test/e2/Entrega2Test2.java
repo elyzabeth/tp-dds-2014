@@ -1,4 +1,4 @@
-package tp.dds.entidades.e2;
+package tp.dds.test.e2;
 
 import java.util.Date;
 
@@ -16,18 +16,18 @@ import tp.dds.entidades.Partido;
 import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.observer.BajaJugador;
 import tp.dds.observer.InscripcionJugador;
-import tp.dds.observer.MailSenderStub;
 import tp.dds.observer.PartidoConfirmado;
+import tp.dds.test.MailSenderStub;
 
 
 public class Entrega2Test2 {
 
-	MailSenderStub mailSender = new MailSenderStub();
+	MailSenderStub mailSender;
+	Partido partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11,
 			jugador12;
-	Partido partido;
 
 	@Before
 	public void initObjects() {

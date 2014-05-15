@@ -1,4 +1,4 @@
-package tp.dds.observer;
+package tp.dds.test;
 
 import java.util.ArrayList;
 import java.util.List;

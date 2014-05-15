@@ -18,9 +18,6 @@ public abstract class InsCondicional extends Inscripcion {
 		return (this.prioridad() <= inscripcion.prioridad());
 	}
 
-	public boolean cumpleCondicion(){
-		// TODO valor hardcodeado, modificar por metodo que controle la condicion.
-		return false;
-	}
+	protected abstract boolean cumpleCondicion(Partido partido);
 
 }

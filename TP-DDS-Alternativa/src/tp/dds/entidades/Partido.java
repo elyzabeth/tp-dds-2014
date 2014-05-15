@@ -6,16 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import tp.dds.excepciones.NoHayLugarException;
-import tp.dds.observer.InscripcionObserver;
 
 public class Partido {
 
-	protected final Integer MAX_JUGADORES_XPARTIDO = 10;
-	private List<Inscripcion> inscripciones;
-	protected	Integer plaza_asegurada;
+	private final Integer MAX_JUGADORES_XPARTIDO = 10;
 	private Date fecha;
+	private String lugar;
 	private Administrador administrador;
-	private List<InscripcionObserver> observadores;
+	
+	private List<Inscripcion> inscripciones;
+	private Integer plaza_asegurada;
+
 
 	public Partido() {
 		this(new Date());
@@ -29,50 +30,40 @@ public class Partido {
 		inicializar();
 		this.fecha = fecha;
 		this.administrador = admin;
+		this.lugar = "";
 	}
 
 	private void inicializar(){
 		this.plaza_asegurada = 0;
 		this.inscripciones = new ArrayList<Inscripcion>();
-		this.observadores = new ArrayList<InscripcionObserver>();
 	}
 
-	public void inscribir(Inscripcion inscripcion) throws NoHayLugarException {
+
+	public void inscribir(Inscripcion inscripcion) {
 		if (permitirInscripcion()) {
 			desplazar(inscripcion);
 		}
 		else {
 			throw new NoHayLugarException(); 
 		}
-
-		notificarInscripcion(inscripcion);
+		limpiarCondicionales();
 	}
 
 
-	private void notificarInscripcion(Inscripcion inscripcion) {
-		Iterator<InscripcionObserver> it = this.observadores.iterator();
-		InscripcionObserver aux;
-		while(it.hasNext()){
-			aux = (InscripcionObserver) it.next();
-			aux.notificarNuevaInscripcion(inscripcion);
-		}
-	}
-
-	public void bajaJugador(Jugador jugadorBaja, Jugador nuevoJugador) throws NoHayLugarException {
+	public void bajaJugador(Jugador jugadorBaja, Jugador jugadorNuevo) {
 
 		// DAR de BAJA jugador
 		quitarJugador(jugadorBaja);
 
-		if (null == nuevoJugador){
+		if (null == jugadorNuevo){
 			jugadorBaja.agregarInfraccion(new Infraccion(new Date(), "BAJA"));
-			notificarInscripcion(null);
 		} else {
-			inscribir(new InsEstandar(nuevoJugador));
+			inscribir(new InsEstandar(jugadorNuevo));
 		}
 	}
 
 
-	private void quitarJugador(Jugador jugadorBaja) {
+	protected void quitarJugador(Jugador jugadorBaja) {
 		List<Inscripcion> ins = new ArrayList<Inscripcion>();
 		Iterator<Inscripcion> it;
 		Inscripcion aux = null;
@@ -90,7 +81,7 @@ public class Partido {
 		}
 	}
 
-	private boolean permitirInscripcion(){
+	protected boolean permitirInscripcion(){
 		return (this.plaza_asegurada < MAX_JUGADORES_XPARTIDO);
 	}
 
@@ -99,20 +90,22 @@ public class Partido {
 		Iterator<Inscripcion> it;
 		Inscripcion aux;
 
-		if(this.inscripciones.isEmpty()|| cantInscriptos() < MAX_JUGADORES_XPARTIDO){
-			this.inscripciones.add(inscripcion);
-			this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-			return true;
-		} else {
-			ins.addAll(this.inscripciones);
-			it = ins.iterator();
-			while(it.hasNext()){
-				aux = it.next();
-				if (aux.cederPlaza(inscripcion)){
-					this.inscripciones.remove(aux);
-					this.inscripciones.add(inscripcion);
-					this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-					return true;
+		if( inscripcion.confirmarPresencia(this)) {
+			if( this.inscripciones.isEmpty() || cantInscriptos() < MAX_JUGADORES_XPARTIDO) {
+				this.inscripciones.add(inscripcion);
+				this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
+				return true;
+			} else {
+				ins.addAll(this.inscripciones);
+				it = ins.iterator();
+				while(it.hasNext()){
+					aux = it.next();
+					if (aux.cederPlaza(inscripcion)){
+						this.inscripciones.remove(aux);
+						this.inscripciones.add(inscripcion);
+						this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
+						return true;
+					}
 				}
 			}
 		}
@@ -120,12 +113,30 @@ public class Partido {
 		return false;
 	}
 
-	public void agregarObservador(InscripcionObserver obs) {
-		this.observadores.add(obs);
+	private void limpiarCondicionales() {
+		List<Inscripcion> ins = new ArrayList<Inscripcion>();
+		Iterator<Inscripcion> it;
+		Inscripcion aux;
+		ins.addAll(this.inscripciones);
+		it = ins.iterator();
+
+		while(it.hasNext()){
+			aux = it.next();
+			if (!aux.confirmarPresencia(this)) {
+				this.inscripciones.remove(aux);
+				this.plaza_asegurada -= aux.incrementarPlazaAsegurada();
+			}
+		}
 	}
 
 	public void generarEquipos(){
-		// TODO
+		// TODO Devolver listado de jugadores verificando si se cumplen 
+		// las condiciones de las inscripciones condicionales
+	}
+
+	public String fecha() {
+		// TODO formatear fecha!!
+		return fecha.toString();
 	}
 
 	public boolean contieneJugador(Inscripcion inscripcion) {
@@ -148,12 +159,12 @@ public class Partido {
 		return administrador;
 	}
 
-	public String fecha() {
-		return fecha.toString();
+	public List<Inscripcion> inscripciones() {
+		return inscripciones;
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
+	public String lugar() {
+		return lugar;
 	}
 
 

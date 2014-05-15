@@ -18,4 +18,9 @@ public class InsSolidaria extends Inscripcion {
 		return (this.prioridad() <= inscripcion.prioridad());
 	}
 
+	@Override
+	public boolean confirmarPresencia(Partido partido) {
+		return true;
+	}
+
 }

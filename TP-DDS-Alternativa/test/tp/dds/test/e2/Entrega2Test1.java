@@ -14,29 +14,30 @@ import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Mail;
 import tp.dds.entidades.Partido;
-import tp.dds.entidades.Persona;
+import tp.dds.entidades.PartidoDecorator;
 import tp.dds.excepciones.NoHayLugarException;
-import tp.dds.observer.BajaJugador;
-import tp.dds.observer.InscripcionJugador;
-import tp.dds.observer.MailSenderStub;
-import tp.dds.observer.PartidoConfirmado;
+import tp.dds.test.MailSenderStub;
 
 
 public class Entrega2Test1 {
 
 	MailSenderStub mailSender;
+	Partido partidoPosta;
+	PartidoDecorator partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11,
 			jugador12;
-	Partido partido;
+
 
 	@Before
 	public void initObjects() {
 
 		Date fechaPartido = new Date();
-		partido = new Partido(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
+		partidoPosta = new Partido(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 		mailSender = new MailSenderStub();
+
+		partido = new PartidoDecorator(partidoPosta, mailSender);
 
 		jugador1 = new Jugador("Martin", "martin@ddsutn.com", 1970);
 		jugador2 = new Jugador("Marcelo", "marcelo@ddsutn.com", 1974);
@@ -61,24 +62,16 @@ public class Entrega2Test1 {
 		jugador11.agregarAmigo(jugador4);
 		jugador11.agregarAmigo(jugador7);
 
-		//Agrego observadores
-		partido.agregarObservador(new BajaJugador(partido, mailSender));
-		partido.agregarObservador(new InscripcionJugador(partido, mailSender));
-		partido.agregarObservador(new PartidoConfirmado(partido, mailSender));
-		
-		try {
-			partido.inscribir(new InsEstandar(jugador1));
-			partido.inscribir(new InsEstandar(jugador2));
-			partido.inscribir(new InsEstandar(jugador3));
-			partido.inscribir(new InsEstandar(jugador4));
-			partido.inscribir(new InsEstandar(jugador5));
-			partido.inscribir(new InsEstandar(jugador6));
-			partido.inscribir(new InsEstandar(jugador7));
-			partido.inscribir(new InsEstandar(jugador8));
-			partido.inscribir(new InsEstandar(jugador9));
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(new InsEstandar(jugador1));
+		partido.inscribir(new InsEstandar(jugador2));
+		partido.inscribir(new InsEstandar(jugador3));
+		partido.inscribir(new InsEstandar(jugador4));
+		partido.inscribir(new InsEstandar(jugador5));
+		partido.inscribir(new InsEstandar(jugador6));
+		partido.inscribir(new InsEstandar(jugador7));
+		partido.inscribir(new InsEstandar(jugador8));
+		partido.inscribir(new InsEstandar(jugador9));
+
 
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 

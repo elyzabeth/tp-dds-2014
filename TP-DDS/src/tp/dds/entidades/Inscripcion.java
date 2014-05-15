@@ -2,8 +2,6 @@ package tp.dds.entidades;
 
 public abstract class Inscripcion {
 
-	//private PrioridadParticipacion prioridad;
-
 	private Jugador jugador;
 
 	public Inscripcion(Jugador jugador) {
@@ -17,11 +15,12 @@ public abstract class Inscripcion {
 
 	public abstract int prioridad();
 
+	public abstract boolean cederPlaza(Inscripcion inscripcion);
+	
+	public abstract boolean confirmarPresencia(Partido partido);
+	
 	public Jugador jugador() {
 		return jugador;
 	}
 
-	public boolean cederPlaza(Inscripcion inscripcion) {
-		return false;
-	}
 }

@@ -1,6 +1,5 @@
 package tp.dds.observer;
 
-import java.security.acl.Permission;
 import java.util.Iterator;
 
 import tp.dds.entidades.Inscripcion;
@@ -17,7 +16,7 @@ public class InscripcionJugador extends InscripcionObserver {
 	}
 
 	public void notificarNuevaInscripcion(Inscripcion inscripcion) {
-		// TODO notificar a los amigos del jugador que se anoto al partido.
+		// notificar a los amigos del jugador que se anoto al partido.
 		if (null != inscripcion) {
 			Iterator<Persona> it = inscripcion.jugador().amigos().iterator();
 			Persona amigo;

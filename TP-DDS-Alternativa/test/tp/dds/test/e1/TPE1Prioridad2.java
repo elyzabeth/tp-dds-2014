@@ -81,4 +81,12 @@ public class TPE1Prioridad2 {
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
+	@Test
+	public void agregarJugadorCondicional2(){
+		System.out.println("Agrego jugador Condicional: No debe agregarse porque no se cumple la condicion");
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 1, 30);
+		partido.inscribir(ins);
+		Assert.assertFalse(partido.contieneJugador(ins));
+	}
+
 }
