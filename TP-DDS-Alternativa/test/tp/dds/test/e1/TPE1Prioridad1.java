@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.test.e1;
 
 import java.util.Date;
 
@@ -6,6 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import tp.dds.entidades.CondMaxCantJugxEdad;
+import tp.dds.entidades.InsEstandar;
+import tp.dds.entidades.InsSolidaria;
+import tp.dds.entidades.Inscripcion;
+import tp.dds.entidades.Jugador;
+import tp.dds.entidades.Partido;
 import tp.dds.excepciones.NoHayLugarException;
 
 /**

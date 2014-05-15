@@ -36,20 +36,16 @@ public class TPE1Prioridad4 {
 		jugador11 = new Jugador("Demian", 1978);
 		jugador12 = new Jugador("Gregorio", 1977);
 
-		try {
-			partido.inscribir(new InsEstandar(jugador1));
-			partido.inscribir(new InsEstandar(jugador2));
-			partido.inscribir(new InsEstandar(jugador3));
-			partido.inscribir(new InsEstandar(jugador4));
-			partido.inscribir(new InsEstandar(jugador5));
-			partido.inscribir(new InsEstandar(jugador6));
-			partido.inscribir(new InsEstandar(jugador7));
-			partido.inscribir(new InsEstandar(jugador8));
-			partido.inscribir(new InsEstandar(jugador9));
-			partido.inscribir(new CondMaxCantJugxEdad(jugador10));
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(new InsEstandar(jugador1));
+		partido.inscribir(new InsEstandar(jugador2));
+		partido.inscribir(new InsEstandar(jugador3));
+		partido.inscribir(new InsEstandar(jugador4));
+		partido.inscribir(new InsEstandar(jugador5));
+		partido.inscribir(new InsEstandar(jugador6));
+		partido.inscribir(new InsEstandar(jugador7));
+		partido.inscribir(new InsEstandar(jugador8));
+		partido.inscribir(new InsEstandar(jugador9));
+		partido.inscribir(new CondMaxCantJugxEdad(jugador10));
 	
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 		
@@ -60,11 +56,7 @@ public class TPE1Prioridad4 {
 	public void agregarJugadorEstandar(){
 		System.out.println("Agrego jugador Estandar: debe desplazar al condicional");
 		Inscripcion ins = new InsEstandar(jugador11);
-		try {
-			partido.inscribir(ins);
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
@@ -72,11 +64,7 @@ public class TPE1Prioridad4 {
 	public void agregarJugadorSolidario(){
 		System.out.println("Agrego jugador Solidario: debe desplazar al condicional");
 		Inscripcion ins = new InsSolidaria(jugador11);
-		try {
-			partido.inscribir(ins);
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
@@ -84,11 +72,7 @@ public class TPE1Prioridad4 {
 	public void agregarJugadorCondicional(){
 		System.out.println("Agrego jugador Condicional: debe desplazar al condicional");
 		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
-		try {
-			partido.inscribir(ins);
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 

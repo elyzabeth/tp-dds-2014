@@ -10,16 +10,19 @@ import tp.dds.observer.InscripcionObserver;
 
 public class Partido {
 
-	private final Integer MAX_JUGADORES_XPARTIDO = 10;
+	protected final Integer MAX_JUGADORES_XPARTIDO = 10;
 	private List<Inscripcion> inscripciones;
-	private	Integer plaza_asegurada;
+	protected	Integer plaza_asegurada;
 	private Date fecha;
 	private Administrador administrador;
 	private List<InscripcionObserver> observadores;
 
+	public Partido() {
+		this(new Date());
+	}
 	
 	public Partido(Date fecha) {
-		this(fecha, null);
+		this(fecha, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 	}
 
 	public Partido(Date fecha, Administrador admin) {
@@ -34,15 +37,9 @@ public class Partido {
 		this.observadores = new ArrayList<InscripcionObserver>();
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
-	}
-
 	public void inscribir(Inscripcion inscripcion) throws NoHayLugarException {
 		if (permitirInscripcion()) {
-
 			desplazar(inscripcion);
-
 		}
 		else {
 			throw new NoHayLugarException(); 
@@ -72,7 +69,6 @@ public class Partido {
 		} else {
 			inscribir(new InsEstandar(nuevoJugador));
 		}
-
 	}
 
 
@@ -124,12 +120,12 @@ public class Partido {
 		return false;
 	}
 
-	public void generarEquipos(){
-		// TODO
+	public void agregarObservador(InscripcionObserver obs) {
+		this.observadores.add(obs);
 	}
 
-	public String fecha() {
-		return "fecha"; //fecha.toString();
+	public void generarEquipos(){
+		// TODO
 	}
 
 	public boolean contieneJugador(Inscripcion inscripcion) {
@@ -152,8 +148,13 @@ public class Partido {
 		return administrador;
 	}
 
-	public void agregarObservador(InscripcionObserver obs) {
-		this.observadores.add(obs);
+	public String fecha() {
+		return fecha.toString();
 	}
+
+	public List<Inscripcion> getInscripciones() {
+		return inscripciones;
+	}
+
 
 }
