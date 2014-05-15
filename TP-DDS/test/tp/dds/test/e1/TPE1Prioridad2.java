@@ -12,7 +12,6 @@ import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Partido;
-import tp.dds.excepciones.NoHayLugarException;
 
 /**
  * Tengo 1 partido con 9 jugadores estandar.

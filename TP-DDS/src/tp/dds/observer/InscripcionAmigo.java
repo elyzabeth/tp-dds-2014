@@ -9,9 +9,9 @@ import tp.dds.entidades.MailSender;
 import tp.dds.entidades.Partido;
 import tp.dds.entidades.Persona;
 
-public class InscripcionJugador extends InscripcionObserver {
+public class InscripcionAmigo extends InscripcionObserver {
 
-	public InscripcionJugador(Partido partido, MailSender mailSender) {
+	public InscripcionAmigo(Partido partido, MailSender mailSender) {
 		super(partido,mailSender);
 	}
 

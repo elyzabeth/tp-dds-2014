@@ -14,10 +14,8 @@ import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Mail;
 import tp.dds.entidades.Partido;
-import tp.dds.entidades.Persona;
-import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.observer.BajaJugador;
-import tp.dds.observer.InscripcionJugador;
+import tp.dds.observer.InscripcionAmigo;
 import tp.dds.observer.PartidoConfirmado;
 import tp.dds.test.MailSenderStub;
 
@@ -63,7 +61,7 @@ public class Entrega2Test1 {
 
 		//Agrego observadores
 		partido.agregarObservador(new BajaJugador(partido, mailSender));
-		partido.agregarObservador(new InscripcionJugador(partido, mailSender));
+		partido.agregarObservador(new InscripcionAmigo(partido, mailSender));
 		partido.agregarObservador(new PartidoConfirmado(partido, mailSender));
 		
 		partido.inscribir(new InsEstandar(jugador1));

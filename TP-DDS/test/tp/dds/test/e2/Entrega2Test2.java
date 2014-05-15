@@ -7,15 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import tp.dds.entidades.Administrador;
-import tp.dds.entidades.CondMaxCantJugxEdad;
 import tp.dds.entidades.InsEstandar;
-import tp.dds.entidades.InsSolidaria;
-import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Partido;
-import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.observer.BajaJugador;
-import tp.dds.observer.InscripcionJugador;
+import tp.dds.observer.InscripcionAmigo;
 import tp.dds.observer.PartidoConfirmado;
 import tp.dds.test.MailSenderStub;
 
@@ -57,7 +53,7 @@ public class Entrega2Test2 {
 
 		//Agrego observadores
 		partido.agregarObservador(new BajaJugador(partido, mailSender));
-		partido.agregarObservador(new InscripcionJugador(partido, mailSender));
+		partido.agregarObservador(new InscripcionAmigo(partido, mailSender));
 		partido.agregarObservador(new PartidoConfirmado(partido, mailSender));
 
 		// Inscribo 10 jugadores estandar sin amigos se envia 1 mail al admin
