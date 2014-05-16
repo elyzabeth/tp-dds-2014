@@ -48,7 +48,7 @@ public class PartidoDecorator extends Partido {
 	}
 
 	private void notificarInscripcion(Jugador jugador) {
-		// TODO notificar partido confirmado
+		// notificar partido confirmado
 		if (this.partidoDecorado.cantInscriptos().equals(this.partidoDecorado.maxJugadoresxPartido()))
 			notificarPartidoConfirmado();
 

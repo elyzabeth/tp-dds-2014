@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CondMaxCantJugxEdad extends InsCondicional {
 
-	//TODO agregar condicion!!!
 	private Integer edadMaxJugadores;
 	private Integer cantJugxEdad;
 
@@ -20,7 +19,6 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 	}
 	
 	protected boolean cumpleCondicion(Partido partido){
-		// TODO valor hardcodeado, modificar por metodo que controle la condicion.
 		List<Inscripcion> inscripciones = partido.inscripciones();
 		Iterator<Inscripcion> it = inscripciones.iterator();
 		Integer cant = 0;

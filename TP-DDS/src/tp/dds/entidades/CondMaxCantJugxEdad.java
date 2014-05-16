@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CondMaxCantJugxEdad extends InsCondicional {
 
-	//TODO agregar condicion!!!
 	private Integer edadMaxJugadores;
 	private Integer cantJugxEdad;
 
@@ -18,9 +17,8 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 		this.cantJugxEdad = cantidad;
 		this.edadMaxJugadores = edad;
 	}
-	
+
 	protected boolean cumpleCondicion(Partido partido){
-		// TODO valor hardcodeado, modificar por metodo que controle la condicion.
 		List<Inscripcion> inscripciones = partido.inscripciones();
 		Iterator<Inscripcion> it = inscripciones.iterator();
 		Integer cant = 0;
@@ -28,10 +26,8 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 
 		while(it.hasNext()){
 			aux = it.next();
-			/// FIX this
-			cant += (2014 - aux.jugador().categoria() <= edadMaxJugadores) ? 1 : 0;
+			cant += (aux.jugador().edad() <= edadMaxJugadores) ? 1 : 0;
 		}
-
 		return cantJugxEdad >= cant;
 	}
 

@@ -17,9 +17,8 @@ public class PartidoConfirmado extends InscripcionObserver {
 
 	public void notificarNuevaInscripcion(Inscripcion inscripcion) {
 		if (partido.cantInscriptos() == 10 && cantInscriptosAnterior != partido.cantInscriptos()){
-			// TODO notificar Partido Confirmado al admin.
-			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido Confirmado", "El partido tiene 10 jugadores");
-			//Mail mail = new Mail("sistema@ddsutn.com", partido.administrador().mail(), "Partido Confirmado", "El partido tiene 10 jugadores");
+			// notificar Partido Confirmado al admin.
+			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido Confirmado", "El partido de la fecha "+partido.fecha()+" tiene 10 jugadores");
 			mailSender.sendMail(mail);
 		}
 		this.cantInscriptosAnterior = partido.cantInscriptos();

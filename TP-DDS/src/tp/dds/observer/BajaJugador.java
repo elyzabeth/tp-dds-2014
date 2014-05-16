@@ -17,8 +17,8 @@ public class BajaJugador extends InscripcionObserver {
 
 	public void notificarNuevaInscripcion(Inscripcion inscripcion) {
 		if (cantInscriptosAnterior == partido.maxJugadoresxPartido() && partido.cantInscriptos() < partido.maxJugadoresxPartido()){
-			// TODO notificar Partido dejo de tener 10 jugadores al admin.
-			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido con menos de 10 jugadores", "El partido "+partido.fecha()+" dejo de tenre 10 jugadores");
+			// notificar Partido dejo de tener 10 jugadores al admin.
+			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido con menos de 10 jugadores", "El partido de la fecha "+partido.fecha()+" dejo de tenre 10 jugadores");
 			mailSender.sendMail(mail);
 		}
 		cantInscriptosAnterior = partido.cantInscriptos();
