@@ -35,6 +35,11 @@ public class Jugador implements Persona {
 	public Integer categoria() {
 		return categoria;
 	}
+	
+	public Integer edad() {
+		/// FIX this
+		return 2014 - categoria;
+	}
 
 	public List<Infraccion> infracciones() {
 		return infracciones;

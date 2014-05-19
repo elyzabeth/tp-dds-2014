@@ -13,16 +13,17 @@ import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Mail;
+import tp.dds.entidades.NotificarInscripcion;
 import tp.dds.entidades.PartidoPosta;
+import tp.dds.interfaces.Partido;
 import tp.dds.entidades.PartidoDecorator;
-import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.test.MailSenderStub;
 
 
 public class Entrega2Test1 {
 
 	MailSenderStub mailSender;
-	PartidoPosta partidoPosta;
+	Partido partidoPosta;
 	PartidoDecorator partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
@@ -36,8 +37,7 @@ public class Entrega2Test1 {
 		Date fechaPartido = new Date();
 		partidoPosta = new PartidoPosta(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 		mailSender = new MailSenderStub();
-
-		partido = new PartidoDecorator(partidoPosta, mailSender);
+		partido = new NotificarInscripcion(partidoPosta, mailSender);
 
 		jugador1 = new Jugador("Martin", "martin@ddsutn.com", 1970);
 		jugador2 = new Jugador("Marcelo", "marcelo@ddsutn.com", 1974);
@@ -72,7 +72,6 @@ public class Entrega2Test1 {
 		partido.inscribir(new InsEstandar(jugador8));
 		partido.inscribir(new InsEstandar(jugador9));
 
-
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 
 	}
@@ -104,7 +103,7 @@ public class Entrega2Test1 {
 	@Test//(expected=NoHayLugarException.class)
 	public void agregarJugadorCondicional() {
 		System.out.println("Agrego jugador Condicional: con 4 amigos, envia mail al admin y a los amigos");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
 		partido.inscribir(ins);
 		Assert.assertEquals(5, mailSender.listaMails().size());
 	}
@@ -112,12 +111,7 @@ public class Entrega2Test1 {
 	@Test
 	public void borroJugador() {
 		System.out.println("Borro jugador sin reemplazo: no envio mails");
-		
-		try {
-			partido.bajaJugador(jugador1, null);
-		} catch (NoHayLugarException e) {
-			e.printStackTrace();
-		}
+		partido.bajaJugador(jugador1, null);
 		Assert.assertEquals(0, mailSender.listaMails().size());
 	}
 

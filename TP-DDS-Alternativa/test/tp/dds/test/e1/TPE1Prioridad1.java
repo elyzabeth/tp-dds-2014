@@ -11,6 +11,7 @@ import tp.dds.entidades.InsEstandar;
 import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
+import tp.dds.interfaces.Partido;
 import tp.dds.entidades.PartidoPosta;
 import tp.dds.excepciones.NoHayLugarException;
 
@@ -23,7 +24,7 @@ public class TPE1Prioridad1 {
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11,
 			jugador12;
-	PartidoPosta partido;
+	Partido partido;
 
 	@Before
 	public void initObjects() {
@@ -72,7 +73,7 @@ public class TPE1Prioridad1 {
 	public void prioridad2(){
 
 		Inscripcion ins1 = new InsEstandar(jugador11);
-		Inscripcion ins2 = new CondMaxCantJugxEdad(jugador12);
+		Inscripcion ins2 = new CondMaxCantJugxEdad(jugador12, 5, 20);
 		System.out.println("Estandar: "+ ins1.prioridad() + " Condicional: "+ ins2.prioridad());
 		Assert.assertTrue(ins1.prioridad()>ins2.prioridad());
 	}
@@ -81,7 +82,7 @@ public class TPE1Prioridad1 {
 	public void prioridad3(){
 
 		Inscripcion ins1 = new InsSolidaria(jugador11);
-		Inscripcion ins2 = new CondMaxCantJugxEdad(jugador12);
+		Inscripcion ins2 = new CondMaxCantJugxEdad(jugador12, 5, 20);
 		System.out.println("Solidaria: "+ ins1.prioridad() + " Condicional: "+ ins2.prioridad());
 		Assert.assertTrue(ins1.prioridad()>ins2.prioridad());
 	}
@@ -106,7 +107,7 @@ public class TPE1Prioridad1 {
 	@Test(expected = NoHayLugarException.class)
 	public void agregarJugadorCondicional() {
 		System.out.println("Agrego jugador Condicional: No debe poder inscribirse");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
 		partido.inscribir(ins);
 		Assert.assertFalse(partido.contieneJugador(ins));
 	}

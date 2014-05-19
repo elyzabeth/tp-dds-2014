@@ -19,7 +19,7 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 		this.cantJugxEdad = cantidad;
 		this.edadMaxJugadores = edad;
 	}
-	
+
 	protected boolean cumpleCondicion(Partido partido){
 		List<Inscripcion> inscripciones = partido.inscripciones();
 		Iterator<Inscripcion> it = inscripciones.iterator();
@@ -28,10 +28,8 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 
 		while(it.hasNext()){
 			aux = it.next();
-			/// FIX this
-			cant += (2014 - aux.jugador().categoria() <= edadMaxJugadores) ? 1 : 0;
+			cant += (aux.jugador().edad() <= edadMaxJugadores) ? 1 : 0;
 		}
-
 		return cantJugxEdad >= cant;
 	}
 

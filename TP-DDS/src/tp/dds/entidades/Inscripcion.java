@@ -9,16 +9,16 @@ public abstract class Inscripcion {
 	}
 
 
-	public Integer incrementarPlazaAsegurada(){
+	public Integer incrementarPlazaAsegurada() {
 		return 0;
 	}
 
 	public abstract int prioridad();
 
 	public abstract boolean cederPlaza(Inscripcion inscripcion);
-	
+
 	public abstract boolean confirmarPresencia(Partido partido);
-	
+
 	public Jugador jugador() {
 		return jugador;
 	}

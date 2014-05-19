@@ -11,8 +11,8 @@ import tp.dds.entidades.InsEstandar;
 import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
+import tp.dds.interfaces.Partido;
 import tp.dds.entidades.PartidoPosta;
-
 
 /**
  * Tengo 1 partido con 9 jugadores estandar y 1 condicional.
@@ -22,7 +22,7 @@ public class TPE1Prioridad4 {
 
 	Jugador jugador1, jugador2, jugador3 , jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11, jugador12;
-	PartidoPosta partido;
+	Partido partido;
 	
 	@Before
 	public void initObjects(){
@@ -51,7 +51,7 @@ public class TPE1Prioridad4 {
 		partido.inscribir(new InsEstandar(jugador7));
 		partido.inscribir(new InsEstandar(jugador8));
 		partido.inscribir(new InsEstandar(jugador9));
-		partido.inscribir(new CondMaxCantJugxEdad(jugador10));
+		partido.inscribir(new CondMaxCantJugxEdad(jugador10, 5, 20));
 	
 		System.out.println("Cant Jugadores estandar: "+ partido.cantJugadoresEstandar());
 		
@@ -77,7 +77,7 @@ public class TPE1Prioridad4 {
 	@Test
 	public void agregarJugadorCondicional(){
 		System.out.println("Agrego jugador Condicional: debe desplazar al condicional");
-		Inscripcion ins = new CondMaxCantJugxEdad(jugador11);
+		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);
 		partido.inscribir(ins);
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
