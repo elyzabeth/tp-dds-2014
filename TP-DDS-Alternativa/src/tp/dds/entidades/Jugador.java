@@ -3,6 +3,8 @@ package tp.dds.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp.dds.interfaces.Persona;
+
 
 public class Jugador implements Persona {
 

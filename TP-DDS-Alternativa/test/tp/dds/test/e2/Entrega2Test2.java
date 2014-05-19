@@ -9,7 +9,7 @@ import org.junit.Test;
 import tp.dds.entidades.Administrador;
 import tp.dds.entidades.InsEstandar;
 import tp.dds.entidades.Jugador;
-import tp.dds.entidades.Partido;
+import tp.dds.entidades.PartidoPosta;
 import tp.dds.entidades.PartidoDecorator;
 import tp.dds.test.MailSenderStub;
 
@@ -17,7 +17,7 @@ import tp.dds.test.MailSenderStub;
 public class Entrega2Test2 {
 
 	MailSenderStub mailSender;
-	Partido partidoPosta;
+	PartidoPosta partidoPosta;
 	PartidoDecorator partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
@@ -28,7 +28,7 @@ public class Entrega2Test2 {
 	public void initObjects() {
 
 		Date fechaPartido = new Date();
-		partidoPosta = new Partido(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
+		partidoPosta = new PartidoPosta(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 		mailSender = new MailSenderStub();
 		
 		partido = new PartidoDecorator(partidoPosta, mailSender);

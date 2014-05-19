@@ -31,9 +31,4 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 		return cantJugxEdad >= cant;
 	}
 
-	@Override
-	public boolean confirmarPresencia(Partido partido) {
-		return cumpleCondicion(partido);
-	}
-
 }

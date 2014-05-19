@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import tp.dds.excepciones.NoHayLugarException;
+import tp.dds.interfaces.Persona;
 import tp.dds.observer.InscripcionObserver;
 
 public class Partido {

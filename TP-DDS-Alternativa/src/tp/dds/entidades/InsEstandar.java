@@ -1,5 +1,7 @@
 package tp.dds.entidades;
 
+import tp.dds.interfaces.Partido;
+
 public class InsEstandar extends Inscripcion {
 
 	private PrioridadParticipacion prioridad = PrioridadParticipacion.ESTANDAR;

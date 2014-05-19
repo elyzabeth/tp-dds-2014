@@ -1,5 +1,7 @@
 package tp.dds.entidades;
 
+import tp.dds.interfaces.Partido;
+
 public abstract class Inscripcion {
 
 	private Jugador jugador;

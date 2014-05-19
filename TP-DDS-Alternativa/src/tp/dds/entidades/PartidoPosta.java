@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import tp.dds.excepciones.NoHayLugarException;
+import tp.dds.interfaces.Partido;
+import tp.dds.interfaces.Persona;
 
-public class Partido {
+public class PartidoPosta implements Partido {
 
 	private final Integer MAX_JUGADORES_XPARTIDO = 10;
 	private Date fecha;
@@ -18,15 +20,15 @@ public class Partido {
 	private Integer plaza_asegurada;
 
 
-	public Partido() {
+	public PartidoPosta() {
 		this(new Date());
 	}
 	
-	public Partido(Date fecha) {
+	public PartidoPosta(Date fecha) {
 		this(fecha, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 	}
 
-	public Partido(Date fecha, Administrador admin) {
+	public PartidoPosta(Date fecha, Administrador admin) {
 		inicializar();
 		this.fecha = fecha;
 		this.administrador = admin;

@@ -1,5 +1,7 @@
 package tp.dds.entidades;
 
+import tp.dds.interfaces.Persona;
+
 public class Administrador implements Persona {
 
 	private String nombre;

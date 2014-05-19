@@ -3,8 +3,8 @@ package tp.dds.observer;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Mail;
 import tp.dds.entidades.MailAdapter;
-import tp.dds.entidades.MailSender;
 import tp.dds.entidades.Partido;
+import tp.dds.interfaces.MailSender;
 
 public class BajaJugador extends InscripcionObserver {
 

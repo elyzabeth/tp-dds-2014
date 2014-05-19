@@ -1,5 +1,7 @@
 package tp.dds.entidades;
 
+import tp.dds.interfaces.Partido;
+
 public abstract class InsCondicional extends Inscripcion {
 
 	private PrioridadParticipacion prioridad = PrioridadParticipacion.CONDICIONAL;
@@ -18,6 +20,10 @@ public abstract class InsCondicional extends Inscripcion {
 		return (this.prioridad() <= inscripcion.prioridad());
 	}
 
-	protected abstract boolean cumpleCondicion(Partido partido);
+	@Override
+	public boolean confirmarPresencia(Partido partido) {
+		return cumpleCondicion(partido);
+	}
 
+	protected abstract boolean cumpleCondicion(Partido partido);
 }

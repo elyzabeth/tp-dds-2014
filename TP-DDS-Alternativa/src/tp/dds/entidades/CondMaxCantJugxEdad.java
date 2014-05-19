@@ -3,6 +3,8 @@ package tp.dds.entidades;
 import java.util.Iterator;
 import java.util.List;
 
+import tp.dds.interfaces.Partido;
+
 public class CondMaxCantJugxEdad extends InsCondicional {
 
 	private Integer edadMaxJugadores;
@@ -31,11 +33,6 @@ public class CondMaxCantJugxEdad extends InsCondicional {
 		}
 
 		return cantJugxEdad >= cant;
-	}
-
-	@Override
-	public boolean confirmarPresencia(Partido partido) {
-		return cumpleCondicion(partido);
 	}
 
 }

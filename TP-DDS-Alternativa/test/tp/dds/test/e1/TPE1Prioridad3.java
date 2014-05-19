@@ -11,7 +11,7 @@ import tp.dds.entidades.InsEstandar;
 import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
-import tp.dds.entidades.Partido;
+import tp.dds.entidades.PartidoPosta;
 
 /**
  * Tengo 1 partido con 9 jugadores estandar y 1 solidario.
@@ -22,12 +22,12 @@ public class TPE1Prioridad3 {
 
 	Jugador jugador1, jugador2, jugador3 , jugador4, jugador5;
 	Jugador jugador6, jugador7, jugador8, jugador9, jugador10, jugador11, jugador12;
-	Partido partido;
+	PartidoPosta partido;
 	
 	@Before
 	public void initObjects(){
 		Date fechaPartido = new Date();
-		partido = new Partido(fechaPartido);
+		partido = new PartidoPosta(fechaPartido);
 
 		jugador1 = new Jugador("Martin", 1970);
 		jugador2 = new Jugador("Marcelo", 1974);

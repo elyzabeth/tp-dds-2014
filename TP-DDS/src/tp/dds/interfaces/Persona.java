@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.interfaces;
 
 public interface Persona {
 

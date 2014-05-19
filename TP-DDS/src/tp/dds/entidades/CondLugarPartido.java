@@ -17,9 +17,4 @@ public class CondLugarPartido extends InsCondicional {
 		return lugar.equalsIgnoreCase(partido.lugar());
 	}
 
-	@Override
-	public boolean confirmarPresencia(Partido partido) {
-		return cumpleCondicion(partido);
-	}
-
 }

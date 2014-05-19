@@ -13,7 +13,7 @@ import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Mail;
-import tp.dds.entidades.Partido;
+import tp.dds.entidades.PartidoPosta;
 import tp.dds.entidades.PartidoDecorator;
 import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.test.MailSenderStub;
@@ -22,7 +22,7 @@ import tp.dds.test.MailSenderStub;
 public class Entrega2Test1 {
 
 	MailSenderStub mailSender;
-	Partido partidoPosta;
+	PartidoPosta partidoPosta;
 	PartidoDecorator partido;
 
 	Jugador jugador1, jugador2, jugador3, jugador4, jugador5;
@@ -34,7 +34,7 @@ public class Entrega2Test1 {
 	public void initObjects() {
 
 		Date fechaPartido = new Date();
-		partidoPosta = new Partido(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
+		partidoPosta = new PartidoPosta(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 		mailSender = new MailSenderStub();
 
 		partido = new PartidoDecorator(partidoPosta, mailSender);

@@ -1,8 +1,8 @@
 package tp.dds.observer;
 
 import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.MailSender;
 import tp.dds.entidades.Partido;
+import tp.dds.interfaces.MailSender;
 
 public abstract class InscripcionObserver {
 
