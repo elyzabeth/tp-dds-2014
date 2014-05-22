@@ -12,6 +12,7 @@ import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Partido;
+import tp.dds.excepciones.NoHayLugarException;
 
 /**
  * Tengo 1 partido con 9 jugadores estandar y 1 solidario.
@@ -74,7 +75,7 @@ public class TPE1Prioridad3 {
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
-	@Test
+	@Test(expected = NoHayLugarException.class)
 	public void agregarJugadorCondicional(){
 		System.out.println("Agrego jugador Condicional: No debe poder agregarse");
 		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 5, 20);

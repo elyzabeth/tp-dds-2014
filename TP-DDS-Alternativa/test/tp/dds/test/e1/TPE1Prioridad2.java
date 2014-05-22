@@ -13,6 +13,7 @@ import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.interfaces.Partido;
 import tp.dds.entidades.PartidoPosta;
+import tp.dds.excepciones.NoCumpleCondicionException;
 
 
 /**
@@ -82,7 +83,7 @@ public class TPE1Prioridad2 {
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
-	@Test
+	@Test(expected = NoCumpleCondicionException.class)
 	public void agregarJugadorCondicional2(){
 		System.out.println("Agrego jugador Condicional: No debe agregarse porque no se cumple la condicion");
 		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 1, 30);

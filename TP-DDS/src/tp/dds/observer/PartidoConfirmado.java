@@ -1,8 +1,6 @@
 package tp.dds.observer;
 
 import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.Mail;
-import tp.dds.entidades.MailAdapter;
 import tp.dds.entidades.Partido;
 import tp.dds.interfaces.MailSender;
 
@@ -18,8 +16,7 @@ public class PartidoConfirmado extends InscripcionObserver {
 	public void notificarNuevaInscripcion(Inscripcion inscripcion) {
 		if (partido.cantInscriptos() == 10 && cantInscriptosAnterior != partido.cantInscriptos()){
 			// notificar Partido Confirmado al admin.
-			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido Confirmado", "El partido de la fecha "+partido.fecha()+" tiene 10 jugadores");
-			mailSender.sendMail(mail);
+			enviarMail("sistema@ddsutn.com", partido.administrador().mail(), "Partido Confirmado", "El partido de la fecha "+partido.fecha()+" tiene 10 jugadores");
 		}
 		this.cantInscriptosAnterior = partido.cantInscriptos();
 	}

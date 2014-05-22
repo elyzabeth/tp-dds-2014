@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import tp.dds.excepciones.NoCumpleCondicionException;
+import tp.dds.excepciones.NoExisteJugadorEnPartidoException;
 import tp.dds.excepciones.NoHayLugarException;
 import tp.dds.interfaces.Partido;
 import tp.dds.interfaces.Persona;
@@ -25,7 +27,7 @@ public class PartidoPosta implements Partido {
 	}
 	
 	public PartidoPosta(Date fecha) {
-		this(fecha, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
+		this(fecha, new Administrador("Administrador", "admin@ddsutn.com"));
 	}
 
 	public PartidoPosta(Date fecha, Administrador admin) {
@@ -78,16 +80,17 @@ public class PartidoPosta implements Partido {
 			if (aux.jugador().nombre().equals(jugadorBaja.nombre()) ) {
 				this.inscripciones.remove(aux);
 				this.plaza_asegurada -= aux.incrementarPlazaAsegurada();
-				break;
+				return;
 			}
 		}
+		throw new NoExisteJugadorEnPartidoException();
 	}
 
 	protected boolean permitirInscripcion(){
 		return (this.plaza_asegurada < MAX_JUGADORES_XPARTIDO);
 	}
 
-	private boolean desplazar(Inscripcion inscripcion) {
+	private void desplazar(Inscripcion inscripcion) {
 		List<Inscripcion> ins = new ArrayList<Inscripcion>();
 		Iterator<Inscripcion> it;
 		Inscripcion aux;
@@ -96,7 +99,7 @@ public class PartidoPosta implements Partido {
 			if( this.inscripciones.isEmpty() || cantInscriptos() < MAX_JUGADORES_XPARTIDO) {
 				this.inscripciones.add(inscripcion);
 				this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-				return true;
+				return;
 			} else {
 				ins.addAll(this.inscripciones);
 				it = ins.iterator();
@@ -106,13 +109,19 @@ public class PartidoPosta implements Partido {
 						this.inscripciones.remove(aux);
 						this.inscripciones.add(inscripcion);
 						this.plaza_asegurada += inscripcion.incrementarPlazaAsegurada();
-						return true;
+						return;
 					}
 				}
 			}
+
+			// TODO aca deberiamos distinguir cuando no hay lugar porque nadie le cede su lugar?? 
+			// de cuando no hay lugar porque son todas inscripciones estandar??
+			throw new NoHayLugarException();
+
+		} else {
+			throw new NoCumpleCondicionException();
 		}
 
-		return false;
 	}
 
 	private void limpiarCondicionales() {

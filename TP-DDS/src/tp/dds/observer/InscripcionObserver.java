@@ -1,6 +1,7 @@
 package tp.dds.observer;
 
 import tp.dds.entidades.Inscripcion;
+import tp.dds.entidades.MailAdapter;
 import tp.dds.entidades.Partido;
 import tp.dds.interfaces.MailSender;
 
@@ -15,5 +16,9 @@ public abstract class InscripcionObserver {
 	}
 
 	public abstract void notificarNuevaInscripcion(Inscripcion inscripcion);
+	
+	protected void enviarMail(String remitente, String receptor, String asunto, String mensaje) {
+		mailSender.sendMail(MailAdapter.crearMail(remitente, receptor, asunto, mensaje));
+	}
 
 }

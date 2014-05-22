@@ -14,6 +14,7 @@ import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Mail;
 import tp.dds.entidades.Partido;
+import tp.dds.excepciones.NoExisteJugadorEnPartidoException;
 import tp.dds.observer.BajaJugador;
 import tp.dds.observer.InscripcionAmigo;
 import tp.dds.observer.PartidoConfirmado;
@@ -117,4 +118,10 @@ public class Entrega2Test1 {
 		Assert.assertEquals(0, mailSender.listaMails().size());
 	}
 
+	@Test(expected = NoExisteJugadorEnPartidoException.class)
+	public void borroJugadorInexistente() {
+		System.out.println("Borro jugador que no existe en el partido: no envio mails, arroja excepcion");
+		partido.bajaJugador(jugador10, null);
+		Assert.assertEquals(0, mailSender.listaMails().size());
+	}
 }

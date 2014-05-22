@@ -12,6 +12,7 @@ import tp.dds.entidades.InsSolidaria;
 import tp.dds.entidades.Inscripcion;
 import tp.dds.entidades.Jugador;
 import tp.dds.entidades.Partido;
+import tp.dds.excepciones.NoCumpleCondicionException;
 
 /**
  * Tengo 1 partido con 9 jugadores estandar.
@@ -80,7 +81,7 @@ public class TPE1Prioridad2 {
 		Assert.assertTrue(partido.contieneJugador(ins));
 	}
 
-	@Test
+	@Test(expected = NoCumpleCondicionException.class)
 	public void agregarJugadorCondicional2(){
 		System.out.println("Agrego jugador Condicional: No debe agregarse porque no se cumple la condicion");
 		Inscripcion ins = new CondMaxCantJugxEdad(jugador11, 1, 30);

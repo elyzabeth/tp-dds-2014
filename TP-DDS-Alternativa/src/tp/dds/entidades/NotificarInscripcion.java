@@ -41,8 +41,7 @@ public class NotificarInscripcion extends PartidoDecorator {
 		if ( this.partido.maxJugadoresxPartido().equals(cantInscriptosAnterior)
 				&& this.partido.maxJugadoresxPartido().compareTo(this.partido.cantInscriptos()) > 0 ) {
 
-			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", this.partido.administrador().mail(), "Partido con menos de 10 jugadores", "El partido "+this.partido.fecha()+" dejo de tenre 10 jugadores");
-			mailSender.sendMail(mail);
+			enviarMail("sistema@ddsutn.com", this.partido.administrador().mail(), "Partido con menos de 10 jugadores", "El partido "+this.partido.fecha()+" dejo de tenre 10 jugadores");
 		}
 	}
 
@@ -65,13 +64,11 @@ public class NotificarInscripcion extends PartidoDecorator {
 	 * @param jugador 
 	 */
 	private void notificarAmigosJugador(Jugador jugador) {
-		// notificar a los amigos del jugador que se anoto al partido.
 		Iterator<Persona> it = jugador.amigos().iterator();
 		Persona amigo;
 		while(it.hasNext()){
 			amigo = (Persona) it.next();
-			Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", amigo.mail(), "Tu amigo se anoto al partido", "Tu amigo "+ jugador.nombre()+" se anoto al partido del ");
-			mailSender.sendMail(mail);
+			enviarMail("sistema@ddsutn.com", amigo.mail(), "Tu amigo se anoto al partido", "Tu amigo "+ jugador.nombre()+" se anoto al partido del ");
 		}
 	}
 
@@ -80,10 +77,10 @@ public class NotificarInscripcion extends PartidoDecorator {
 	 * que el partido tiene los 10 jugadores necesarios.
 	 */
 	private void notificarPartidoConfirmado() {
+		enviarMail("sistema@ddsutn.com", this.partido.administrador().mail(), "Partido Confirmado", "El partido de la fecha "+this.partido.fecha() +" tiene 10 jugadores");
+	}
 
-		// notificar Partido Confirmado al admin.
-		Mail mail = MailAdapter.crearMail("sistema@ddsutn.com", this.partido.administrador().mail(), "Partido Confirmado", "El partido de la fecha "+this.partido.fecha() +" tiene 10 jugadores");
-		mailSender.sendMail(mail);
-
+	private void enviarMail(String remitente, String receptor, String asunto, String mensaje) {
+		mailSender.sendMail(MailAdapter.crearMail(remitente, receptor, asunto, mensaje));
 	}
 }
