@@ -2,8 +2,8 @@ package tp.dds.interfaces;
 
 import java.util.List;
 
-import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.Jugador;
+import tp.dds.dominio.Inscripcion;
+import tp.dds.dominio.Jugador;
 
 public interface Partido {
 

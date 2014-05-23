@@ -6,12 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import tp.dds.entidades.CondMaxCantJugxEdad;
-import tp.dds.entidades.InsEstandar;
-import tp.dds.entidades.InsSolidaria;
-import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.Jugador;
-import tp.dds.entidades.Partido;
+import tp.dds.dominio.CondMaxCantJugxEdad;
+import tp.dds.dominio.InsEstandar;
+import tp.dds.dominio.InsSolidaria;
+import tp.dds.dominio.Inscripcion;
+import tp.dds.dominio.Jugador;
+import tp.dds.dominio.Partido;
 
 /**
  * Tengo 1 partido con 9 jugadores estandar y 1 condicional.

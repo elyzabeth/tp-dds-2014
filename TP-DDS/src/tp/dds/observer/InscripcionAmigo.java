@@ -2,8 +2,8 @@ package tp.dds.observer;
 
 import java.util.Iterator;
 
-import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.Partido;
+import tp.dds.dominio.Inscripcion;
+import tp.dds.dominio.Partido;
 import tp.dds.interfaces.MailSender;
 import tp.dds.interfaces.Persona;
 

@@ -1,4 +1,6 @@
-package tp.dds.entidades;
+package tp.dds.dominio;
+
+import tp.dds.interfaces.Partido;
 
 public class InsEstandar extends Inscripcion {
 

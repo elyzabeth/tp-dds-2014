@@ -1,6 +1,6 @@
 package tp.dds.interfaces;
 
-import tp.dds.entidades.Mail;
+import tp.dds.dominio.Mail;
 
 public interface MailSender {
 

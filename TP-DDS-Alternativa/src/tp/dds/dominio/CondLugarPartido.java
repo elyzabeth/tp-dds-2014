@@ -1,4 +1,6 @@
-package tp.dds.entidades;
+package tp.dds.dominio;
+
+import tp.dds.interfaces.Partido;
 
 public class CondLugarPartido extends InsCondicional {
 
@@ -16,5 +18,6 @@ public class CondLugarPartido extends InsCondicional {
 	protected boolean cumpleCondicion(Partido partido){
 		return lugar.equalsIgnoreCase(partido.lugar());
 	}
+
 
 }

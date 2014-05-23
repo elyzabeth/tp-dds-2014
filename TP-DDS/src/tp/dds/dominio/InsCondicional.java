@@ -1,6 +1,4 @@
-package tp.dds.entidades;
-
-import tp.dds.interfaces.Partido;
+package tp.dds.dominio;
 
 public abstract class InsCondicional extends Inscripcion {
 

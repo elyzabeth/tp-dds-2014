@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.dominio;
 
 import java.util.ArrayList;
 import java.util.List;

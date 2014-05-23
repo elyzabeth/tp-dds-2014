@@ -6,12 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import tp.dds.entidades.Administrador;
-import tp.dds.entidades.InsEstandar;
-import tp.dds.entidades.Jugador;
-import tp.dds.entidades.NotificarInscripcion;
-import tp.dds.entidades.PartidoPosta;
-import tp.dds.entidades.PartidoDecorator;
+import tp.dds.dominio.Administrador;
+import tp.dds.dominio.InsEstandar;
+import tp.dds.dominio.Jugador;
+import tp.dds.dominio.NotificarInscripcion;
+import tp.dds.dominio.PartidoDecorator;
+import tp.dds.dominio.PartidoPosta;
 import tp.dds.interfaces.Partido;
 import tp.dds.test.MailSenderStub;
 

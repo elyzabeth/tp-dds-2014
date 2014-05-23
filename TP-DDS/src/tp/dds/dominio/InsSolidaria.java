@@ -1,4 +1,4 @@
-package tp.dds.entidades;
+package tp.dds.dominio;
 
 public class InsSolidaria extends Inscripcion {
 

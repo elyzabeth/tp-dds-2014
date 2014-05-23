@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import tp.dds.entidades.Administrador;
-import tp.dds.entidades.InsEstandar;
-import tp.dds.entidades.Jugador;
-import tp.dds.entidades.Partido;
+import tp.dds.dominio.Administrador;
+import tp.dds.dominio.InsEstandar;
+import tp.dds.dominio.Jugador;
+import tp.dds.dominio.Partido;
 import tp.dds.observer.BajaJugador;
 import tp.dds.observer.InscripcionAmigo;
 import tp.dds.observer.PartidoConfirmado;

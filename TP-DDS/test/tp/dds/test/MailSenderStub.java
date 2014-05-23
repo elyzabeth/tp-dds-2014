@@ -3,7 +3,7 @@ package tp.dds.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.dds.entidades.Mail;
+import tp.dds.dominio.Mail;
 import tp.dds.interfaces.MailSender;
 
 public class MailSenderStub implements MailSender {

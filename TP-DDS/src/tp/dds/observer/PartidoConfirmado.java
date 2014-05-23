@@ -1,7 +1,7 @@
 package tp.dds.observer;
 
-import tp.dds.entidades.Inscripcion;
-import tp.dds.entidades.Partido;
+import tp.dds.dominio.Inscripcion;
+import tp.dds.dominio.Partido;
 import tp.dds.interfaces.MailSender;
 
 public class PartidoConfirmado extends InscripcionObserver {

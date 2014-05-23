@@ -1,7 +1,9 @@
-package tp.dds.entidades;
+package tp.dds.dominio;
 
 import java.util.Iterator;
 import java.util.List;
+
+import tp.dds.interfaces.Partido;
 
 public class CondMaxCantJugxEdad extends InsCondicional {
 
