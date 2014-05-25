@@ -3,9 +3,11 @@ package tp.dds.dominio;
 public abstract class Inscripcion {
 
 	private Jugador jugador;
+	private Boolean asistencia;
 
 	public Inscripcion(Jugador jugador) {
 		this.jugador = jugador;
+		this.asistencia = false;
 	}
 
 
@@ -23,4 +25,15 @@ public abstract class Inscripcion {
 		return jugador;
 	}
 
+	public Boolean asistencia() {
+		return asistencia;
+	}
+
+	public void confirmarAsistencia() {
+		this.asistencia = true;
+	}
+
+	public void confirmarAusencia() {
+		this.asistencia = false;
+	}
 }

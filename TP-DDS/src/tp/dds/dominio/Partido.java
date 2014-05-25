@@ -18,8 +18,8 @@ public class Partido {
 	private String lugar;
 	private Administrador administrador;
 
-	private List<Inscripcion> inscripciones;
 	private	Integer plaza_asegurada;
+	private List<Inscripcion> inscripciones;
 	private List<InscripcionObserver> observadores;
 
 
