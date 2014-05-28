@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import tp.dds.interfaces.CheckCandidato;
-
 public class Jugadores {
 
 	private List<Jugador> jugadoresPendientes;
@@ -44,32 +42,9 @@ public class Jugadores {
 		this.jugadoresAprobados.add(new InsEstandar(jugador));
 	}
 
-	public void aprobarJugadorEstandar(Jugador jugador) {
-		this.jugadoresPendientes.remove(jugador);
-		this.jugadoresAprobados.add(new InsEstandar(jugador));
-	}
-
-	public void aprobarJugadorSolidario(Jugador jugador) {
-		this.jugadoresPendientes.remove(jugador);
-		this.jugadoresAprobados.add(new InsSolidaria(jugador));
-	}
-
 	public void desaprobarJugador(Jugador jugador) {
 		this.jugadoresPendientes.remove(jugador);
 		this.denegaciones.add(new Denegacion(LocalDateTime.now(), "No cumple condicion", jugador));
-	}
-
-	public void evaluarJugadoresPendientes (CheckCandidato evaluador) {
-
-		for (Jugador candidato : this.jugadoresPendientes) {
-			if(evaluador.cumpleCondicion(candidato)){
-				aprobarJugador(candidato);
-			} else {
-				desaprobarJugador(candidato);
-			}
-		}
-
-		this.jugadoresPendientes.clear();
 	}
 
 }

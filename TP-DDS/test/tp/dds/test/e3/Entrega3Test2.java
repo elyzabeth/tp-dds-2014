@@ -1,5 +1,8 @@
 package tp.dds.test.e3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +10,7 @@ import org.junit.Test;
 import tp.dds.dominio.Administrador;
 import tp.dds.dominio.Jugadores;
 import tp.dds.dominio.Jugador;
+import tp.dds.interfaces.CheckCandidato;
 
 
 public class Entrega3Test2 {
@@ -51,11 +55,23 @@ public class Entrega3Test2 {
 		jugadores.proponerJugador(jugador12);
 	}
 
+	public void evaluarJugadoresPendientes (CheckCandidato evaluador) {
+		List<Jugador> pendientes = new ArrayList<Jugador>();
+		pendientes.addAll(jugadores.jugadoresPendientes());
+
+		for (Jugador candidato : pendientes) {
+			if(evaluador.cumpleCondicion(candidato)){
+				jugadores.aprobarJugador(candidato);
+			} else {
+				jugadores.desaprobarJugador(candidato);
+			}
+		}
+	}
 
 	@Test
 	public void evaluarJugadores() {
 		System.out.println("Tiene que aprobar a todos");
-		jugadores.evaluarJugadoresPendientes( (Jugador j) -> j.edad() >= 18 );
+		evaluarJugadoresPendientes( (Jugador j) -> j.edad() >= 18 );
 		Assert.assertEquals(12, jugadores.jugadoresAprobados().size());
 	}
 
@@ -63,6 +79,7 @@ public class Entrega3Test2 {
 	@Test
 	public void evaluarJugadores2() {
 		System.out.println("Tiene que desaprobar 1");
+		evaluarJugadoresPendientes( (Jugador j) -> j.edad() >= 25 );
 		Assert.assertEquals(1, jugadores.denegaciones().size());
 	}
 
