@@ -1,6 +1,6 @@
 package tp.dds.test.e1;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +27,8 @@ public class TPE1Prioridad1 {
 
 	@Before
 	public void initObjects() {
-		Date fechaPartido = new Date();
-		partido = new Partido(fechaPartido);
+
+		partido = new Partido( LocalDateTime.now());
 
 		jugador1 = new Jugador("Martin", 1970);
 		jugador2 = new Jugador("Marcelo", 1974);

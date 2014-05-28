@@ -1,5 +1,6 @@
 package tp.dds.dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +38,7 @@ public class Jugador implements Persona {
 	}
 	
 	public Integer edad() {
-		/// FIX this
-		return 2014 - categoria;
+		return LocalDate.now().getYear() - categoria;
 	}
 
 	public List<Infraccion> infracciones() {

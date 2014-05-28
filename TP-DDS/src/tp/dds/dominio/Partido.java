@@ -1,8 +1,8 @@
 package tp.dds.dominio;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import tp.dds.excepciones.NoCumpleCondicionException;
@@ -14,7 +14,7 @@ import tp.dds.observer.InscripcionObserver;
 public class Partido {
 
 	private final Integer MAX_JUGADORES_XPARTIDO = 10;
-	private Date fecha;
+	private LocalDateTime fecha;
 	private String lugar;
 	private Administrador administrador;
 
@@ -23,15 +23,11 @@ public class Partido {
 	private List<InscripcionObserver> observadores;
 
 
-	public Partido() {
-		this(new Date());
-	}
-	
-	public Partido(Date fecha) {
+	public Partido(LocalDateTime fecha) {
 		this(fecha, new Administrador("Administrador", "admin@ddsutn.com"));
 	}
 
-	public Partido(Date fecha, Administrador admin) {
+	public Partido(LocalDateTime fecha, Administrador admin) {
 		inicializar();
 		this.fecha = fecha;
 		this.administrador = admin;
@@ -59,10 +55,7 @@ public class Partido {
 
 
 	private void notificarInscripcion(Inscripcion inscripcion) {
-		Iterator<InscripcionObserver> it = this.observadores.iterator();
-		InscripcionObserver aux;
-		while(it.hasNext()){
-			aux = (InscripcionObserver) it.next();
+		for (InscripcionObserver aux : this.observadores) {
 			aux.notificarNuevaInscripcion(inscripcion);
 		}
 	}
@@ -73,7 +66,7 @@ public class Partido {
 		quitarJugador(jugadorBaja);
 
 		if (null == jugadorNuevo){
-			jugadorBaja.agregarInfraccion(new Infraccion(new Date(), "BAJA"));
+			jugadorBaja.agregarInfraccion(new Infraccion(LocalDateTime.now(), "BAJA sin reemplazo"));
 			notificarInscripcion(null);
 		} else {
 			inscribir(new InsEstandar(jugadorNuevo));
@@ -84,20 +77,16 @@ public class Partido {
 
 	private void quitarJugador(Jugador jugadorBaja) {
 		List<Inscripcion> ins = new ArrayList<Inscripcion>();
-		Iterator<Inscripcion> it;
-		Inscripcion aux = null;
-
 		ins.addAll(this.inscripciones);
-		it = ins.iterator();
 
-		while(it.hasNext()){
-			aux = it.next();
-			if (aux.jugador().nombre().equals(jugadorBaja.nombre()) ) {
-				this.inscripciones.remove(aux);
-				this.plaza_asegurada -= aux.incrementarPlazaAsegurada();
+		for (Inscripcion inscripcion : ins) {
+			if (inscripcion.jugador().nombre().equals(jugadorBaja.nombre()) ) {
+				this.inscripciones.remove(inscripcion);
+				this.plaza_asegurada -= inscripcion.incrementarPlazaAsegurada();
 				return;
 			}
 		}
+
 		throw new NoExisteJugadorEnPartidoException();
 	}
 
@@ -108,8 +97,6 @@ public class Partido {
 
 	private void desplazar(Inscripcion inscripcion) {
 		List<Inscripcion> ins = new ArrayList<Inscripcion>();
-		Iterator<Inscripcion> it;
-		Inscripcion aux;
 
 		if( inscripcion.confirmarPresencia(this)) {
 			if( this.inscripciones.isEmpty() || cantInscriptos() < MAX_JUGADORES_XPARTIDO) {
@@ -118,9 +105,8 @@ public class Partido {
 				return;
 			} else {
 				ins.addAll(this.inscripciones);
-				it = ins.iterator();
-				while(it.hasNext()){
-					aux = it.next();
+
+				for (Inscripcion aux : ins) {
 					if (aux.cederPlaza(inscripcion)){
 						this.inscripciones.remove(aux);
 						this.inscripciones.add(inscripcion);
@@ -142,13 +128,9 @@ public class Partido {
 
 	private void limpiarCondicionales() {
 		List<Inscripcion> ins = new ArrayList<Inscripcion>();
-		Iterator<Inscripcion> it;
-		Inscripcion aux;
 		ins.addAll(this.inscripciones);
-		it = ins.iterator();
 
-		while(it.hasNext()){
-			aux = it.next();
+		for (Inscripcion aux : ins) {
 			if (!aux.confirmarPresencia(this)) {
 				this.inscripciones.remove(aux);
 				this.plaza_asegurada -= aux.incrementarPlazaAsegurada();
@@ -163,7 +145,7 @@ public class Partido {
 
 	public String fecha() {
 		// TODO formatear fecha!!
-		return fecha.toString();
+		return fecha.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
 	}
 
 	public boolean contieneJugador(Inscripcion inscripcion) {

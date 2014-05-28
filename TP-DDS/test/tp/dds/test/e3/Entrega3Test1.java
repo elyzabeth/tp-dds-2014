@@ -1,4 +1,4 @@
-package tp.dds.test.e2;
+package tp.dds.test.e3;
 
 import java.time.LocalDateTime;
 
@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import tp.dds.dominio.Administrador;
+import tp.dds.dominio.Calificacion;
 import tp.dds.dominio.InsEstandar;
+import tp.dds.dominio.Inscripcion;
 import tp.dds.dominio.Jugador;
 import tp.dds.dominio.Partido;
 import tp.dds.observer.BajaJugador;
@@ -16,7 +18,7 @@ import tp.dds.observer.PartidoConfirmado;
 import tp.dds.test.MailSenderStub;
 
 
-public class Entrega2Test3 {
+public class Entrega3Test1 {
 
 	MailSenderStub mailSender;
 	Partido partido;
@@ -72,17 +74,12 @@ public class Entrega2Test3 {
 	}
 
 	@Test
-	public void actualizarAsistencia() {
-		System.out.println("Agrego asistencia a jugador 1");
-		partido.inscripciones().get(1).confirmarAsistencia();
-		Assert.assertEquals(true, partido.inscripciones().get(1).asistencia());
-	}
-
-	@Test
-	public void actualizarAusencia() {
-		System.out.println("Agrego ausencia a jugador 1");
-		partido.inscripciones().get(1).confirmarAusencia();
-		Assert.assertEquals(false, partido.inscripciones().get(1).asistencia());
+	public void agregoUnaCalificacion() {
+		System.out.println("Obtengo 1 jugador del partido y le agrego una calificacion");
+		Inscripcion ins = partido.inscripciones().get(0);
+		Calificacion c = new Calificacion(6, "Debe correr mas durante el partido.");
+		ins.calificarJugador(c);
+		Assert.assertEquals(c, partido.inscripciones().get(0).calificaciones().get(0));
 	}
 
 }

@@ -1,6 +1,6 @@
 package tp.dds.test.e2;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,8 +33,7 @@ public class Entrega2Test1 {
 	@Before
 	public void initObjects() {
 
-		Date fechaPartido = new Date();
-		partido = new Partido(fechaPartido, new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
+		partido = new Partido( LocalDateTime.now(), new Administrador("Elizabeth", "elyzabeth@ddsutn.com"));
 		mailSender = new MailSenderStub();
 
 		jugador1 = new Jugador("Martin", "martin@ddsutn.com", 1970);
