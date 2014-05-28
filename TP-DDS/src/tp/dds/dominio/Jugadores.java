@@ -10,7 +10,7 @@ import tp.dds.interfaces.CheckCandidato;
 public class Jugadores {
 
 	private List<Jugador> jugadoresPendientes;
-	private List<Jugador> jugadoresAprobados;
+	private List<Inscripcion> jugadoresAprobados;
 	private List<Denegacion> denegaciones;
 
 	public Jugadores(){
@@ -18,12 +18,12 @@ public class Jugadores {
 	}
 
 	private void inicializar(){
-		this.jugadoresAprobados = new ArrayList<Jugador>();
+		this.jugadoresAprobados = new ArrayList<Inscripcion>();
 		this.denegaciones = new ArrayList<Denegacion>();
 		this.jugadoresPendientes = new ArrayList<Jugador>();
 	}
 
-	public List<Jugador> jugadoresAprobados() {
+	public List<Inscripcion> jugadoresAprobados() {
 		return this.jugadoresAprobados;
 	}
 
@@ -41,7 +41,17 @@ public class Jugadores {
 
 	public void aprobarJugador(Jugador jugador) {
 		this.jugadoresPendientes.remove(jugador);
-		this.jugadoresAprobados.add(jugador);
+		this.jugadoresAprobados.add(new InsEstandar(jugador));
+	}
+
+	public void aprobarJugadorEstandar(Jugador jugador) {
+		this.jugadoresPendientes.remove(jugador);
+		this.jugadoresAprobados.add(new InsEstandar(jugador));
+	}
+
+	public void aprobarJugadorSolidario(Jugador jugador) {
+		this.jugadoresPendientes.remove(jugador);
+		this.jugadoresAprobados.add(new InsSolidaria(jugador));
 	}
 
 	public void desaprobarJugador(Jugador jugador) {
